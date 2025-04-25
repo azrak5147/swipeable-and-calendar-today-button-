@@ -1,13 +1,17 @@
 export const getMarkedDates = (agendaData) => {
   const marked = {};
 
-  for (const date in agendaData) {
-    if (!agendaData[date]) continue;
+  agendaData.forEach((section) => {
+    const date = section.title; // Tarih bilgisi
+    const events = section.data; // Bu tarihe ait etkinlikler
+
+    // Eğer bu tarihte etkinlik yoksa işaretleme yapma
+    if (!events || events.length === 0) return;
 
     // Varsayılan arka plan rengi
     let backgroundColor = "#00ADF5";
 
-    // Kategorilere göre arka plan rengi ve ikon belirleme
+    // Kategorilere göre arka plan rengi belirleme
     const categoryColorMap = {
       Aile: "#00A173",
       Arkadaş: "#FFB90B",
@@ -15,10 +19,9 @@ export const getMarkedDates = (agendaData) => {
       İş: "#E74779",
     };
 
-    for (const [key, color] of Object.entries(categoryColorMap)) {
-      if (agendaData[date].some((item) => item.category === key)) {
+    for (const [category, color] of Object.entries(categoryColorMap)) {
+      if (events.some((event) => event.category === category)) {
         backgroundColor = color;
-
         break;
       }
     }
@@ -29,6 +32,7 @@ export const getMarkedDates = (agendaData) => {
         text: { color: "white" },
       },
     };
-  }
+  });
+
   return marked;
 };

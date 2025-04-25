@@ -6,8 +6,10 @@ import { createStaticNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import CalendarsScreen from "./screens/CalendarScreen";
+import TakvimScreen from "./screens/TakvimScreen";
 const RootStack = createNativeStackNavigator({
   screens: {
+    Takvim: TakvimScreen,
     Calendars: CalendarsScreen,
     Home: Home,
   },
